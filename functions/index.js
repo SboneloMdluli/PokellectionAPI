@@ -18,7 +18,7 @@ const db = admin.database()
 app.use(cors({ origin: true }))
 
 app.get('/cards/:name', (req, res) => {
-  const ref = db.ref(req.params.name)
+  const ref = db.ref(req.params.name.toLocaleLowerCase())
   ref.on('value', (snapshot) => {
     const name = snapshot.val()
     res.send({ name })
