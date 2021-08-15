@@ -5,7 +5,8 @@ const functions = require('firebase-functions')
 
 const admin = require('firebase-admin')
 
-const serviceAccount = require('..')
+const serviceAccount = {
+}
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -19,7 +20,8 @@ app.use(cors({ origin: true }))
 app.get('/cards/:name', (req, res) => {
   const ref = db.ref(req.params.name)
   ref.on('value', (snapshot) => {
-    res.send(snapshot.val())
+    const name = snapshot.val()
+    res.send({ name })
   }, (errorObject) => {
     res.send(errorObject)
   })
